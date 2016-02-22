@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Data Analysis</title>
+<h1>Representació de potencies</h1>
+
+<p>
+<img id="foto" src="file://./Pol_1_Nodes_4_Perd_XX_TxRate_XX.jpg" >
+</p>
+<label style="display: inline-block; width: 240px; text-align: left">
+    Nodos: <span id="nRadius-value">…</span>
+</label>
+<div id="slider"></div>
+
+
+
+<label style="display: inline-block; width: 240px; text-align: left">
+    Politica: <span id="nRadius-value2">…</span>
+</label>
+<div id="slider2"></div>
+
+
+<label style="display: inline-block; width: 240px; text-align: left">
+    Perdues: <span id="nRadius-value3">…</span>
+</label>
+<div id="slider3"></div>
+
+
+<label style="display: inline-block; width: 240px; text-align: left">
+    TxRate: <span id="nRadius-value4">…</span>
+</label>
+<div id="slider4" style="width:200"></div>
+
+
+
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<link rel="stylesheet" type="text/css" href="d3.slider.css" media="screen" />
+<script src="d3.v3.min.js"></script>
+<script src="d3.slider.js"></script>
+
+<script>
+    politiques=['1','2','3','4'];
+    nodes=['4','8','16','32'];
+    perdues=['XX','0','0.2','0.4','0.6','0.8'];
+    TxRate=['XX','0.01','0.1','1','2'];
+
+    var nodo=4;
+    var politica=1;
+    var perdida="XX"
+    var tx="XX"
+
+    var slider = d3.slider().min(4).max(32).tickValues([4,8,16,32]).stepValues([4,8,16,32]).showRange(true).tickFormat(update);
+    var slider2 = d3.slider().min(1).max(4).tickValues([1,2,3,4]).stepValues([1,2,3,4]).showRange(true).tickFormat(update2);
+    var slider3 = d3.slider().min(-0.2).max(0.8).tickValues([-0.2,0,0.2,0.4,0.6,0.8]).stepValues([-0.2,0,0.2,0.4,0.6,0.8]).showRange(true).tickFormat(update3);
+    var slider4 = d3.slider().min(-0.1).max(2).tickValues([-0.1,0.01,0.1,1,2]).stepValues([-0.1,0.01,0.1,1,2]).showRange(true).tickFormat(update4);
+
+    d3.select('#slider').call(slider)
+    d3.select('#slider2').call(slider2)
+    d3.select('#slider3').call(slider3)
+    d3.select('#slider4').call(slider4)
+
+
+
+// update the elements
+    function update(nRadius) {
+        nodo=nRadius
+        // adjust the text on the range slider
+        d3.select("#nRadius-value").text(nRadius);
+        d3.select("#foto").property("src","Pol_"+politica+"_Nodes_"+nodo+"_Perd_"+perdida+"_TxRate_"+tx+".jpg")
+    }
+    function update2(nRadius) {
+        politica=nRadius
+        // adjust the text on the range slider
+        d3.select("#nRadius-value2").text(nRadius);
+        d3.select("#foto").property("src","Pol_"+politica+"_Nodes_"+nodo+"_Perd_"+perdida+"_TxRate_"+tx+".jpg")
+    }
+    function update3(nRadius) {
+        if (nRadius<0){
+            perdida="XX"
+        }
+        else{
+            perdida=nRadius
+        }
+        // adjust the text on the range slider
+        d3.select("#nRadius-value3").text(perdida);
+        d3.select("#foto").property("src","Pol_"+politica+"_Nodes_"+nodo+"_Perd_"+perdida+"_TxRate_"+tx+".jpg")
+    }
+    function update4(nRadius) {
+        if (nRadius<0){
+            tx="XX"
+        }
+        else{
+            tx=nRadius
+        }
+        // adjust the text on the range slider
+        d3.select("#nRadius-value4").text(tx);
+        d3.select("#foto").property("src","Pol_"+politica+"_Nodes_"+nodo+"_Perd_"+perdida+"_TxRate_"+tx+".jpg")
+    }
+</script>
