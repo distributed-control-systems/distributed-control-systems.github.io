@@ -1,1 +1,92 @@
-Hello World
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Data Analysis</title>
+<h1>Active power sharing figures</h1>
+This page provides the full set of figures accompanying the paper <b>Performance evaluation of secondary control policies with respect to digital communications properties in inverter-based islanded microgrids</b> under submission to IEEE Transactions on Smart Grid (February 2016).</br></br>For the four evaluated policies, <i>1-centralized</i>, <i>2-decentralized</i>, <i>3-averaging</i>, and <i>4-consensus</i>, the set of figures cover four different microgrid sizes {4, 8, 16, 32}-node MG, six transmission intervals {0.01, 0.1, 0.2, 0.3, 0.4, 0.5}s, and five message percentage losses {0%, 10%, 20%, 30%, 40%, 50%}.</br></br>
+Sliders on the right-side of the figure permit choosing between 480 figures.
+<table>
+<tr>
+<td>
+<p>
+<img id="foto" src="file://./Pol_1_Nodes_4_Perd_XX_TxRate_XX.jpg" >
+</p>
+</td>
+<td>
+<label style="display: inline-block; width: 240px; text-align: left">
+    MG size: <span id="nRadius-value">…</span>
+</label>
+<div id="slider"></div>
+
+
+
+<label style="display: inline-block; width: 240px; text-align: left">
+    Policy: <span id="nRadius-value2">…</span>
+</label>
+<div id="slider2"></div>
+
+
+<label style="display: inline-block; width: 240px; text-align: left">
+    Percentage loss: <span id="nRadius-value3">…</span>
+</label>
+<div id="slider3"></div>
+
+
+<label style="display: inline-block; width: 240px; text-align: left">
+    Transmission interval: <span id="nRadius-value4">…</span>
+</label>
+<div id="slider4" style="width:200"></div>
+</td></tr></table>
+
+
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<link rel="stylesheet" type="text/css" href="d3.slider.css" media="screen" />
+<script src="d3.v3.min.js"></script>
+<script src="d3.slider.js"></script>
+
+<script>
+
+    var nodo=4;
+    var politica=1;
+    var perdida="XX"
+    var tx="XX"
+
+    var slider = d3.slider().min(4).max(32).tickValues([4,8,16,32]).stepValues([4,8,16,32]).showRange(true).tickFormat(update);
+    var slider2 = d3.slider().min(2).max(5).tickValues([2,3,4,5]).stepValues([2,3,4,5]).showRange(true).tickFormat(update2);
+    var slider3 = d3.slider().min(0).max(0.5).tickValues([0,0.1,0.2,0.3,0.4,0.5]).stepValues([0,0.1,0.2,0.3,0.4,0.5]).showRange(true).tickFormat(update3);
+    var slider4 = d3.slider().min(0.01).max(1).tickValues([0.01,0.1,0.3,0.5,1]).stepValues([0.01,0.1,0.3,0.5,1]).showRange(true).tickFormat(update4);
+
+    d3.select('#slider').call(slider)
+    d3.select('#slider2').call(slider2)
+    d3.select('#slider3').call(slider3)
+    d3.select('#slider4').call(slider4)
+
+
+
+// update the elements
+    function update(nRadius) {
+        nodo=nRadius
+        // adjust the text on the range slider
+        d3.select("#nRadius-value").text(nRadius);
+        d3.select("#foto").property("src","P_Pau_Pol_"+politica+"_Nodes_"+nodo+"_Perd_"+perdida+"_TxRate_"+tx+".mat.jpg")
+    }
+    function update2(nRadius) {
+        politica=nRadius
+        // adjust the text on the range slider
+        d3.select("#nRadius-value2").text(nRadius-1);
+        d3.select("#foto").property("src","P_Pau_Pol_"+politica+"_Nodes_"+nodo+"_Perd_"+perdida+"_TxRate_"+tx+".mat.jpg")
+    }
+    function update3(nRadius) {
+                    perdida=nRadius
+               // adjust the text on the range slider
+        d3.select("#nRadius-value3").text(perdida);
+        d3.select("#foto").property("src","P_Pau_Pol_"+politica+"_Nodes_"+nodo+"_Perd_"+perdida+"_TxRate_"+tx+".mat.jpg")
+    }
+    function update4(nRadius) {
+                   tx=nRadius
+        
+        // adjust the text on the range slider
+        d3.select("#nRadius-value4").text(tx);
+        d3.select("#foto").property("src","P_Pau_Pol_"+politica+"_Nodes_"+nodo+"_Perd_"+perdida+"_TxRate_"+tx+".mat.jpg")
+    }
+</script>
